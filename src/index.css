@@ -205,34 +205,37 @@ label {
   gap: 1.5rem;
   padding: 0.6rem 2.4rem;
   font-size: 1.2rem;
-  border: 1px solid #ccc;
+  border: 1px solid rgb(160, 201, 255);
   border-radius: 30px;
-  box-shadow: 0 2px 4px rgba(214, 11, 170, 0.1);
+  box-shadow: 0 2px 4px rgb(160, 201, 255);
   max-width: fit-content;
   margin: 20px auto;
 }
 
 .navbar-item {
-  border-bottom: 1px solid rgb(46, 10, 194);
+  border-bottom: 1px solid rgb(160, 201, 255);
 }
 
 .navbar-item:hover {
-  border-bottom: 1px solid #9d00ff;
+  border-bottom: 1px solid rgb(160, 201, 255);
 }
 
 /*********** Card ***********/
 .card {
   border: 1px solid #ccc;
-  box-shadow: 0 2px 4px rgba(222, 13, 13, 0.1);
+  box-shadow: 0 2px 4px rgb(160, 201, 255);
   padding: 20;
   /* background-image: linear-gradient(to bottom right, #f0f0f0, #ffffff); */
 }
 
+.navbar a{
+  color : rgb(160, 201, 255);
+}
 .recent-transactions-card {
   padding: 1rem;
   border-radius: 0.5rem;
   background-color: #efefef;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgb(160, 201, 255);
 }
 
 /* Inputs */
@@ -243,7 +246,7 @@ select {
   padding: 0.25rem 0.75rem 0.25rem 0.75rem;
   font-size: 0.875rem;
   line-height: 1.25rem;
-  box-shadow: 0 0 0 0px #fff, 0 0 0 calc(1px + 0px) rgba(40, 50, 66, 0.5),
+  box-shadow: 0 0 0 0px #fff, 0 0 0 calc(1px + 0px) rgb(160, 201, 255),
     0 0 #0000;
   outline: 2px solid transparent;
   outline-offset: 2px;
