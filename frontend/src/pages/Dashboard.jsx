@@ -1,8 +1,11 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Clock, PieChart, TrendingDown, TrendingUp } from "lucide-react";
 import { useEffect, useState } from "react";
+import Navbar from "../components/Navbar";
+import { useTransactions } from "../context/TransactionContext";
 
-function Dashboard({ transactions }) {
+const Dashboard = () => {
+  const { transactions } = useTransactions();
   const [stats, setStats] = useState({
     total: 0,
     income: 0,
@@ -16,8 +19,7 @@ function Dashboard({ transactions }) {
   useEffect(() => {
     const calculateStats = () => {
       if (transactions.length === 0) {
-        setStats((prev) => ({
-          ...prev,
+        const emptyStats = {
           total: 0,
           income: 0,
           expenses: 0,
@@ -25,8 +27,14 @@ function Dashboard({ transactions }) {
           categories: {},
           recentTransactions: [],
           trend: { income: 0, expenses: 0 },
-        }));
+        };
 
+        setStats((prev) => {
+          if (JSON.stringify(prev) === JSON.stringify(emptyStats)) {
+            return prev;
+          }
+          return emptyStats;
+        });
         return;
       }
 
@@ -45,13 +53,13 @@ function Dashboard({ transactions }) {
       // Calculate spending by category
       const categories = transactions.reduce((acc, t) => {
         const category = t.category.toLowerCase();
-        if (!acc[category]) acc[category] = 0;
-        acc[category] += Number(t.amount);
+        acc[category] = (acc[category] || 0) + Number(t.amount);
         return acc;
       }, {});
 
-      // Get recent transactions
+      // Get recent transactions (clone before sort)
       const recentTransactions = transactions
+        .slice()
         .sort((a, b) => b.id - a.id)
         .slice(0, 5);
 
@@ -88,7 +96,7 @@ function Dashboard({ transactions }) {
           100,
       };
 
-      setStats({
+      const newStats = {
         total,
         income,
         expenses,
@@ -96,6 +104,13 @@ function Dashboard({ transactions }) {
         categories,
         recentTransactions,
         trend,
+      };
+
+      setStats((prev) => {
+        if (JSON.stringify(prev) === JSON.stringify(newStats)) {
+          return prev;
+        }
+        return newStats;
       });
     };
 
@@ -104,7 +119,9 @@ function Dashboard({ transactions }) {
 
   return (
     <div className="main-container" style={{ padding: "20px" }}>
+      <Navbar />
       <h1 className="sub-heading-large">Financial Overview</h1>
+
       {/* Summary cards */}
       <div
         style={{
@@ -146,7 +163,10 @@ function Dashboard({ transactions }) {
             {stats.trend.income > 0 ? (
               <TrendingUp className="sub-container-icon-medium" color="green" />
             ) : (
-              <TrendingDown className="sub-container-icon-medium" color="red" />
+              <TrendingDown
+                className="sub-container-icon-medium"
+                color="red"
+              />
             )}
           </CardHeader>
           <CardContent>
@@ -171,7 +191,10 @@ function Dashboard({ transactions }) {
             {stats.trend.expenses > 0 ? (
               <TrendingUp className="sub-container-icon-medium" color="green" />
             ) : (
-              <TrendingDown className="sub-container-icon-medium" color="red" />
+              <TrendingDown
+                className="sub-container-icon-medium"
+                color="red"
+              />
             )}
           </CardHeader>
           <CardContent>
@@ -234,7 +257,7 @@ function Dashboard({ transactions }) {
                         {transaction.description}
                       </p>
                       <p className="text-muted-foreground">
-                        {new Date(transaction.id).toLocaleDateString()} —
+                        {new Date(transaction.id).toLocaleDateString()} —{" "}
                         {new Date(transaction.id).toLocaleTimeString()}
                       </p>
                     </div>
@@ -268,9 +291,7 @@ function Dashboard({ transactions }) {
           </CardHeader>
           <CardContent>
             {Object.entries(stats.categories).length === 0 ? (
-              <p className="text-muted-foreground">
-                No spending data available.
-              </p>
+              <p className="text-muted-foreground">No spending data available.</p>
             ) : (
               <div>
                 {Object.entries(stats.categories)
