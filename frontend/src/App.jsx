@@ -37,7 +37,7 @@ function App() {
   // const [transactions, setTransactions] = useState([]);
 
   // useEffect(() => {
-  //   fetch("http://localhost:5000/transactions")
+  //   fetch("https://react-finance-tracker.onrender.com/transactions")
   //     .then((res) => res.json())
   //     .then((data) => {
   //       setTransactions(data);
@@ -49,7 +49,7 @@ function App() {
 
   // const addTransaction = async (tx) => {
   //   try {
-  //     const res = await fetch("http://localhost:5000/transactions", {
+  //     const res = await fetch("https://react-finance-tracker.onrender.com/transactions", {
   //       method: "POST",
   //       headers: { "Content-Type": "application/json" },
   //       body: JSON.stringify(tx),
@@ -64,7 +64,7 @@ function App() {
 
   // const deleteTransaction = async (_id) => {
   //   try {
-  //     await fetch(`http://localhost:5000/transactions/${_id}`, {
+  //     await fetch(`https://react-finance-tracker.onrender.com/transactions/${_id}`, {
   //       method: "DELETE",
   //     });
 
@@ -76,7 +76,7 @@ function App() {
 
   // const editTransaction = async (_id, tx) => {
   //   try {
-  //     await fetch(`http://localhost:5000/transactions/${_id}`, {
+  //     await fetch(`https://react-finance-tracker.onrender.com/transactions/${_id}`, {
   //       method: "PUT",
   //       headers: { "Content-Type": "application/json" },
   //       body: JSON.stringify(tx),
